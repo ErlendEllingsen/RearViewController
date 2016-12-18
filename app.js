@@ -8,7 +8,7 @@ var device = {};
 function getDeviceName() {
 
     exec('lsusb', function(err, out, code) {
-        console.log(out);
+        console.log(out.toString());
         return;
     });
 
