@@ -2,7 +2,9 @@ var exec = require('exec');
 var colors = require('colors');
 
 
-var device = {};
+var device = {
+    identifer_name: '046d:0826 Logitech, Inc.'
+};
 
 
 function getDeviceName() {
@@ -12,7 +14,14 @@ function getDeviceName() {
         var list = out.toString();
 
         list = list.split('\n');
-        console.log(JSON.stringify(list));
+        //console.log(JSON.stringify(list));
+
+        for (var i = 0; i < list.length; i++) {
+            var line = list[i];
+            if (line.indexOf(device.identifer_name) != -1) {
+                console.log(line);
+            }
+        }
 
         //console.log(out.toString());
         return;
