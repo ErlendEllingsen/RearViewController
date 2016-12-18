@@ -45,7 +45,7 @@ function getDeviceName() {
 
 }
 
-getDeviceName();
+
 
 
 function fixDevice() {
@@ -74,3 +74,5 @@ function init() {
     device.interval = setInterval(getDeviceName, (15 * 1000));
     updatepic();
 }
+
+init();
