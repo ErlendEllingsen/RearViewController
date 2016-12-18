@@ -59,6 +59,7 @@ function fixDevice() {
 function updatepic() {
     exec('fswebcam -D 1 --no-banner -r 640x480 /var/www/html/image.jpg', function(err, out, code) {
             if (err != '') {
+                console.log(err);
                 fixDevice();
                 return;
             }
