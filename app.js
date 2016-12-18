@@ -3,11 +3,11 @@ var colors = require('colors');
 
 
 var device = {
+    interval: null,
     identifer_name: '046d:0826 Logitech, Inc.',
     bus_id: 0,
     device_id: 0
 };
-
 
 function getDeviceName() {
 
@@ -50,24 +50,27 @@ getDeviceName();
 
 function fixDevice() {
     console.log(colors.red('Usb device error... Resetting...'));
-    exec('sudo /home/pi/work/usbreset /dev/bus/usb/001/005', function(err, out, code) {
+    exec('sudo /home/pi/work/usbreset /dev/bus/usb/' + device.bus_id + '/' + device.device_id, function(err, out, code) {
         console.log(colors.blue('Usb device error... Resetting...'));
         setTimeout(updatepic, 3000);
     });
 }
 
 function updatepic() {
+    exec('fswebcam -D 1 --no-banner -r 640x480 /var/www/html/image.jpg', function(err, out, code) {
+            if (err != '') {
+                fixDevice();
+                return;
+            }
 
+            //console.log('hi! ' + out.toString());
+            console.log(colors.white('Pic -- OK'));
+            setTimeout(updatepic, 500);
+    });
+}
 
-exec('fswebcam -D 1 --no-banner -r 640x480 /var/www/html/image.jpg', function(err, out, code) {
-        if (err != '') {
-            fixDevice();
-            return;
-        }
-
-        //console.log('hi! ' + out.toString());
-        console.log(colors.white('Pic -- OK'));
-        setTimeout(updatepic, 500);
-});
-
+function init() {
+    getDeviceName();
+    device.interval = setInterval(getDeviceName, (15 * 1000));
+    updatepic();
 }
