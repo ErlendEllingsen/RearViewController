@@ -3,7 +3,9 @@ var colors = require('colors');
 
 
 var device = {
-    identifer_name: '046d:0826 Logitech, Inc.'
+    identifer_name: '046d:0826 Logitech, Inc.',
+    bus_id: 0,
+    device_id: 0
 };
 
 
@@ -16,12 +18,26 @@ function getDeviceName() {
         list = list.split('\n');
         //console.log(JSON.stringify(list));
 
+        var foundCameraLine = null;
+
         for (var i = 0; i < list.length; i++) {
             var line = list[i];
             if (line.indexOf(device.identifer_name) != -1) {
-                console.log(line);
+                foundCameraLine = line;
+                break;
             }
         }
+
+        if (foundCameraLine === null) {
+            console.log(colors.red('Camera not found... Looking for ' + device.identifer_name));
+            process.exit(0);
+        }
+
+        device.bus_id = (foundCameraLine.split('Bus ')[1].split(' ')[0]);
+        device.device_id = (foundCameraLine.split('Device ')[1].split(':')[0]);
+
+        console.log('bus_id: '+  device.bus_id);
+        console.log('device_id: '+  device.device_id);
 
         //console.log(out.toString());
         return;
