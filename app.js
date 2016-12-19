@@ -70,7 +70,7 @@ function updatepic() {
 
             //console.log('hi! ' + out.toString());
             console.log(colors.white('Pic -- OK'));
-            setTimeout(updatepic, 500);
+            setTimeout(updatepic, 50);
     });
 }
 
