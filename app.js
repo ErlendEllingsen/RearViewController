@@ -9,6 +9,9 @@ var device = {
     device_id: 0
 };
 
+//Image identifier
+var identifier = false;
+
 function getDeviceName() {
 
     exec('lsusb', function(err, out, code) {
@@ -57,8 +60,14 @@ function fixDevice() {
 }
 
 function updatepic() {
-    var identifier = Date.now();
-    exec('fswebcam -D 1 --no-banner -r 640x480 /var/www/html/rearcam/images/' + Date.now() + '_image.jpg', function(err, out, code) {
+    
+    if (identifier !== false) {
+        exec('rm -f -r /var/www/html/rearcam/images/' + identifier + '_image.jpg');
+    }
+
+    identifier = Date.now();
+
+    exec('fswebcam -D 1 --no-banner -r 640x480 /var/www/html/rearcam/images/' + identifier + '_image.jpg', function(err, out, code) {
             
             fs.writeFile('/var/www/html/rearcam/last_number.txt', identifier);
             
