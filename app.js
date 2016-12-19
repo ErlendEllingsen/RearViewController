@@ -76,7 +76,7 @@ function updatepic() {
 
 function init() {
     getDeviceName();
-    device.interval = setInterval(getDeviceName, (15 * 1000));
+    device.interval = setInterval(getDeviceName, (4 * 1000));
     updatepic();
 }
 
