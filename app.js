@@ -52,7 +52,7 @@ function fixDevice() {
     console.log(colors.red('Usb device error... Resetting...'));
     exec('sudo /home/pi/work/usbreset /dev/bus/usb/' + device.bus_id + '/' + device.device_id, function(err, out, code) {
         console.log(colors.blue('Usb device error... Resetting...'));
-        setTimeout(updatepic, 3000);
+        setTimeout(updatepic, 2000);
     });
 }
 
