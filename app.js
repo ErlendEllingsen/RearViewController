@@ -1,6 +1,6 @@
 var exec = require('exec');
 var colors = require('colors');
-
+var fs = require('fs');
 
 var device = {
     interval: null,
@@ -60,7 +60,7 @@ function updatepic() {
     var identifier = Date.now();
     exec('fswebcam -D 1 --no-banner -r 640x480 /var/www/html/rearcam/images/' + Date.now() + '_image.jpg', function(err, out, code) {
             
-            fs.writeFile('last_number.txt', identifier);
+            fs.writeFile('/var/www/html/rearcam/last_number.txt', identifier);
             
             if (err != '' && (err.toString().indexOf('Processing captured image') == -1)) {
                 err = err.toString();
