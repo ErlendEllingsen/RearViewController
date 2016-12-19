@@ -62,7 +62,9 @@ function fixDevice() {
 function updatepic() {
     
     if (identifier !== false) {
-        exec('rm -f -r /var/www/html/rearcam/images/' + identifier + '_image.jpg');
+        exec('sudo rm -f -r /var/www/html/rearcam/images/' + identifier + '_image.jpg', function(err, out, code){
+            
+        });
     }
 
     identifier = Date.now();
