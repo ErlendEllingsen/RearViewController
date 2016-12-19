@@ -9,6 +9,18 @@ var device = {
     device_id: 0
 };
 
+var ImageDeletion = function(id){
+    var self = this;
+    this.id = id;
+    this.timeout = setTimeout(function(){
+        
+            exec('sudo rm -f -r /var/www/html/rearcam/images/' + self.id + '_image.jpg', function(err, out, code){
+                console.log(colors.white('Deleted ' + id));
+            });
+        
+    }, 5000);
+};
+
 //Image identifier
 var identifier = false;
 
@@ -62,10 +74,7 @@ function fixDevice() {
 function updatepic() {
     
     if (identifier !== false) {
-        setTimeout(function(){
-            exec('sudo rm -f -r /var/www/html/rearcam/images/' + identifier + '_image.jpg', function(err, out, code){
-            });
-        }, 5000);
+        var deletion = new ImageDeletion(identifier);
     }
 
     identifier = Date.now();
