@@ -61,7 +61,7 @@ function updatepic() {
             
             
             
-            if (err != '') {
+            if (err != '' && (err.toString().indexOf('Processing captured image') == -1)) {
                 err = err.toString();
                 console.log(err);
                 fixDevice();
