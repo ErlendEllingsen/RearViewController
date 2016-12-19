@@ -30,7 +30,7 @@ function getDeviceName() {
 
         if (foundCameraLine === null) {
             console.log(colors.red('Camera not found... Looking for ' + device.identifer_name));
-
+            return;
         }
 
         device.bus_id = (foundCameraLine.split('Bus ')[1].split(' ')[0]);
